@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 @RestController
 public class WelcomeController {
 
-    @Value("${welcome.message}") String message;
-    public WelcomeController(String message){
+    String message;
+    public WelcomeController(@Value("${welcome.message}") String message){
     this.message=message;
     }
 
