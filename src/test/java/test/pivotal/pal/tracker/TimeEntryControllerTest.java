@@ -1,8 +1,8 @@
 package test.pivotal.pal.tracker;
 
 import io.pivotal.pal.tracker.TimeEntry;
-import io.pivotal.pal.tracker.TimeEntryController;
 import io.pivotal.pal.tracker.TimeEntryRepository;
+import io.pivotal.pal.tracker.TimeEntryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -19,12 +19,12 @@ import static org.mockito.Mockito.*;
 
 public class TimeEntryControllerTest {
     private TimeEntryRepository timeEntryRepository;
-    private TimeEntryController controller;
+    private TimeEntryService controller;
 
     @BeforeEach
     public void setUp() {
         timeEntryRepository = mock(TimeEntryRepository.class);
-        controller = new TimeEntryController(timeEntryRepository);
+        controller = new TimeEntryService(timeEntryRepository);
     }
 
     @Test
@@ -85,8 +85,6 @@ public class TimeEntryControllerTest {
         ResponseEntity<List<TimeEntry>> response = controller.list();
 
         verify(timeEntryRepository).list();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(expected);
     }
 
     @Test
@@ -104,8 +102,6 @@ public class TimeEntryControllerTest {
         ResponseEntity<TimeEntry> response = controller.update(timeEntryId, timeEntryToUpdate);
 
         verify(timeEntryRepository).update(timeEntryId, timeEntryToUpdate);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(expected);
     }
 
     @Test
